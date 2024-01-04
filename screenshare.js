@@ -72,6 +72,8 @@ $(document).ready(function() {
 									$('#select').click(SelectRoom);
 									//ROBA MIA(bottone per richiedere la lista di stanze disponibili )
 									$('#choose').click(listRooms);
+									//bottone creazione stanza
+									$('#bottoneCreaS').click(createRoom);
 									$('#username').focus();
 									$('#start').removeAttr('disabled').html("Stop")
 										.click(function() {
@@ -266,7 +268,9 @@ $(document).ready(function() {
 														"configuration file? If not, make sure you copy the details of room <code>" + myroom + "</code> " +
 														"from that sample in your current configuration file, then restart Janus and try again."
 													);
-												} else {
+												} else if(msg["error_code"] === 430){
+													bootbox.alert(msg["error"]);
+												}else {
 													bootbox.alert(msg["error"]);
 												}
 											}
@@ -449,7 +453,8 @@ function listRooms(){
 			}
 			$('#select').removeClass('hide');
 			$('#connect').removeClass('hide');
-		}   });
+		}   
+	});
 
 
 }
@@ -458,23 +463,89 @@ function listRooms(){
 function SelectRoom(){
 
 	
-	//prendo la stanza selezionata
-	let stanza = $("#arr option:selected").val();
-	
+	//prendo la stanza selezionata, faccio il parsing perché di default mi viene restituito un "val"
+	let stanza = parseInt($("#arr option:selected").val());
+
+	let displayName = $('#username').val();
 
 
+	$('#videojoin').hide();
 
-
-	// richiesta d join
-	let register = {
+	//richiesta d join
+	let log = {
 		request: "join",
 		room: stanza,
 		ptype: "publisher",
-		display: username
+		display: displayName
 	};
+	sfutest.send({ message: log });
 	
 }
 
+
+
+//ROBA MIA
+function createRoom(){
+
+//prendo la stanza selezionata, faccio il parsing perché di default mi viene restituito un "val"
+let input = $("#create").val();
+
+
+
+if (input === ""){
+	alert("Inserire un numero di stanza")
+		return;
+}
+
+
+let stanza = parseInt($("#create").val());
+
+	let list = {
+		request: "list"
+		};
+	
+		let ids=null;
+		 let rooms =[];
+	sfutest.send({ message: list,
+		success: function(result) {
+			ids =result["list"]
+			$('#arr').empty();
+			for (let i in ids){
+				
+			rooms[i] = ids[i]["room"];		
+			}
+			
+		}   
+
+		
+
+
+	});
+
+	
+
+	for (let j in rooms){
+		if(rooms[j] === stanza){
+			alert("La stanza esiste già")
+			return;
+		}
+	}
+
+	let create = {
+		request: "create",
+		room: stanza,
+		publishers: 6,
+		bitrate: 128000,
+		fir_freq: 10, 	
+        record: false,
+		};
+
+
+	$('#DivCreazione').hide();
+
+	sfutest.send({ message: create});
+
+}
 
 
 function registerUsername() {
@@ -506,13 +577,16 @@ function registerUsername() {
 	// 		$('#register').removeAttr('disabled').click(registerUsername);
 	// 		return;
 	// 	}
+
+	$('#videojoin').hide();
+	// ricordati di fare scommparire tutte le cose superflue usando hide
 		let register = {
 			request: "join",
 			room: myroom,
 			ptype: "publisher",
 			display: "default"
 		};
-		myusername = escapeXmlTags(username);
+		//myusername = escapeXmlTags(username);
 		sfutest.send({ message: register });
 	//}
 }
