@@ -603,7 +603,9 @@ function publishOwnFeed(useAudio) {
 	tracks.push({ type: 'screen', capture: true, recv: false,
 
 			//mia aggiunta
-				type:'video',capture: true, recv: false,
+			
+				//type:'video',capture: true, recv: false,
+
 		// We may need to enable simulcast or SVC on the video track
 		simulcast: doSimulcast,
 		// We only support SVC for VP9 and (still WIP) AV1
