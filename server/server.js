@@ -1,31 +1,31 @@
 var app = require('express')();
-// var https = require('https').Server(app);
-var https = require('https');
+var http = require('http').Server(app);
+// var https = require('https');
 const express = require('express');
-const  fs = require('fs')
-const port = 8080
+// const  fs = require('fs')
+// const port = 8080
 
 app.use(express.static("collegamenti"));
 
 app.get('/',function(req, res){
     res.sendFile(__dirname +'/index.html');
-
+    
 });
 
-const httpsOptions = {
-    key:  fs.readFileSync('./security/localhost.key'),
-    cert: fs.readFileSync('./security/localhost.crt')
-}
+// const httpsOptions = {
+//     key:  fs.readFileSync('./security/localhost.key'),
+//     cert: fs.readFileSync('./security/localhost.crt')
+// }
 
 
 
-const server = https.createServer(httpsOptions, app).listen(port, () => {
-    console.log('server running at ' + port)
-  })
+// const server = https.createServer(httpsOptions, app).listen(port, () => {
+//     console.log('server running at ' + port)
+//   })
 
-// https.listen(8080,function(){
-//     console.log('Listening on port 8080...');
-// });
+http.listen(8080,function(){
+    console.log('Listening on port 8080...');
+});
 
 // var mysql = require('mysql2');
 
