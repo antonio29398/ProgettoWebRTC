@@ -23,8 +23,8 @@ app.get('/',function(req, res){
 //     console.log('server running at ' + port)
 //   })
 
-http.listen(8080,function(){
-    console.log('Listening on port 8080...');
+http.listen(80,function(){
+    console.log('Listening on port 80...');
 });
 
 // var mysql = require('mysql2');
