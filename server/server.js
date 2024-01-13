@@ -5,6 +5,8 @@ const express = require('express');
 // const  fs = require('fs')
 // const port = 8080
 
+//react flag
+
 app.use(express.static("collegamenti"));
 
 app.get('/',function(req, res){
