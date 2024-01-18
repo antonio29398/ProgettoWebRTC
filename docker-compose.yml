@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: "mysql:latest"
+    container_name : 'mysqlCompose'
+    ports:
+    - "13306:3306"
+    environment:
+    # - MYSQL_ROOT_PASSWORD=pippozzo
+    # - MYSQL_USER=root
+    # - MYSQL_PASSWORD=piopio
+    # - MYSQL_DATABASE=prove
+
+      MYSQL_DATABASE: 'db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'user'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password'
+    
+    networks:
+      network_compose:
+        ipv4_address: 194.20.1.3
+        
+    
+  
+  janus:
+    image: "antonio29398/janus-gateway:v3"
+
+    container_name: 'janusCompose'
+
+    command:  bash -c "/opt/janus/bin/janus "
+
+    ports:
+    - "8088:8088"
+    - "8089:8089"
+
+    networks:
+      network_compose:
+        ipv4_address: 194.20.1.4
+      
+  
+  server:
+    image: "antonio29398/ubuntuserver:latest"
+    container_name : 'serverCompose'
+    
+    ports:
+    - "8000:8000"
+    
+    volumes:
+    - ./ProgettoWebRTC:/home/ProgettoWebRTC
+
+    command: bash -c " cd  /home/ProgettoWebRTC/server && npm start " 
+
+    networks:
+      network_compose:
+        ipv4_address: 194.20.1.5
+      
+networks:
+  network_compose:
+    ipam:
+      config:
+         - subnet: 194.20.1.1/24
+
+  
+
+
