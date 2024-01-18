@@ -1,0 +1,6 @@
+-aggiungere nginx nel compose 
+
+-aggiungere comando per startare il front end 
+-specificare nella documentazione che bisogna inserire il percorso del progetto in volumes del server 
+
+-aggiungere table nel db in mysql
