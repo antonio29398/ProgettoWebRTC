@@ -1,74 +1,61 @@
 
 import './App.css';
 import React from 'react';
+import logo from './immagini/logo-uni.png'; 
 import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBCheckbox,
-  MDBIcon
+  MDBBtn
+  //MDBContainer,
+  //MDBRow,
+  //MDBCol,
+  //MDBCard,
+  //MDBCardBody
+  //MDBInput,
+  //MDBCheckbox,
+  //MDBIcon
 }
+  
 from 'mdb-react-ui-kit';
 
 function App() {
   return (
-    <MDBContainer fluid className='p-4 background-radial-gradient overflow-hidden'>
+    <div fluid className="overflow-hidden" style = {{backgroundColor: "black", backgroundImage: `url(${logo})`}}>
 
-      <MDBRow>
+      <div className='text-center text-md-center top-level-box' style = {{placeSelf: "center"}}>
 
-        <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
+        <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{ color: 'hsl(218, 81%, 95%)' }}>
+          UNINA Screensharing <br/>
+          <span style={{ color: 'hsl(218, 81%, 75%)' }}>WEBRTC Project</span>
+        </h1>
 
-          <h1 className="my-5 display-3 fw-bold ls-tight px-3" style={{color: 'hsl(218, 81%, 95%)'}}>
-            UNINA Screensharing <br />
-            <span style={{color: 'hsl(218, 81%, 75%)'}}>WEBRTC Project</span>
-          </h1>
+        <p className='px-3' style={{ color: 'hsl(218, 81%, 85%)' }}>
+          Webapp sviluppata per il progetto del corso di studi WEB and Real Time Communication Systems a.a. 2023/24.
+          Il servizio permette la creazione e la partecipazione a varie stanze in cui ciascun utente può condividere
+          il proprio schermo a tutti i partecipanti.
+          <br/>
+          <br/>
+          È necessaria una registrazione prima di utilizzare il servizio.
 
-          <p className='px-3' style={{color: 'hsl(218, 81%, 85%)'}}>
-            Webapp sviluppata per il progetto del corso di studi WEBRTC and real time communication anno 2023/24.
-            Il servizio permette la creazione e la partecipazione a varie stanze in cui è possibile condividere 
-            il proprio display fra gli ospiti in maniera contemporanea.
-            <br/>
-            <br/>
-            È necessario registrarsi per utilizzare il servizio.
+          <br/>
+          <br/>
 
+        </p>
+  
 
-          </p>
+        <div className='my-5 bg-glass'>
+          <div className='p-5'>
 
-        </MDBCol>
+            <MDBBtn className='w-100 mb-4' style = {{backgroundColor: "hsla(218, 92%, 76%, 0.671)"}} size='md'>Accedi</MDBBtn>
+            <MDBBtn className='w-100 mb-4' style = {{backgroundColor: "hsla(218, 92%, 76%, 0.671)"}} size='md'>Registrati</MDBBtn>
 
-        <MDBCol md='6' className='position-relative'>
+          </div>
+        </div>
 
-          <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
-          <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
-
-          <MDBCard className='my-5 bg-glass'>
-            <MDBCardBody className='p-5'>
-
-              {/* <MDBInput wrapperClass='mb-4' label='Nome' id='form1' type='text'/>
-              <MDBInput wrapperClass='mb-4' label='Cognome' id='form2' type='text'/>
-              <MDBInput wrapperClass='mb-4' label='Username' id='form3' type='text'/>
-              <MDBInput wrapperClass='mb-4' label='Email' id='form4' type='email'/>
-              <MDBInput wrapperClass='mb-4' label='Password' id='form5' type='password'/> */}
+      </div>
 
 
-              <MDBBtn className='w-100 mb-4' size='md'>Accedi</MDBBtn>
 
-              <MDBBtn className='w-100 mb-4' size='md'>Registrati</MDBBtn>
-
-
-            </MDBCardBody>
-          </MDBCard>
-
-        </MDBCol>
-
-      </MDBRow>
-
-    </MDBContainer>
-  );
+    </div>
+  )
 }
 
 export default App;
