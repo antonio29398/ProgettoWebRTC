@@ -14,6 +14,19 @@ app.get('/',function(req, res){
     
 });
 
+app.post('/Login',function(req, res){
+    console.log("postFunziona");
+    
+});
+
+
+app.get('/Login',function(req, res){
+    console.log(" Funziona")
+    
+    
+});
+
+
 // const httpsOptions = {
 //     key:  fs.readFileSync('./security/localhost.key'),
 //     cert: fs.readFileSync('./security/localhost.crt')
@@ -25,8 +38,8 @@ app.get('/',function(req, res){
 //     console.log('server running at ' + port)
 //   })
 
-http.listen(80,function(){
-    console.log('Listening on port 80...');
+http.listen(8080,function(){
+    console.log('Listening on port 8080...');
 });
 
 // var mysql = require('mysql2');

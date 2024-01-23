@@ -2,6 +2,7 @@ import Layout from "./Layout";
 import HomeButton from "./HomeButton";
 import { useState } from "react";
 import React from "react";
+
 import {
     MDBInput,
     MDBCol,
@@ -22,9 +23,17 @@ function Register() {
         setInputs(values => ({ ...values, [name]: value }))
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(inputs);
+async function handleSubmit () {
+        // event.preventDefault();
+        // console.log(inputs);
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: 'React POST Request Example' })
+        };
+        const response = await fetch('http://localhost:8080', requestOptions);
+        const data = await response.json();
+        this.setState({ postId: data.id });
     }
 
     return (
