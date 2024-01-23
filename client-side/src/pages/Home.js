@@ -39,13 +39,8 @@ function Home() {
             <MDBBtn className='w-100 mb-4' style={{ backgroundColor: "hsla(218, 92%, 76%, 0.671)" }} size='md' onClick={() => navigate("/register")}>Registrati</MDBBtn>
 
           </div>
-
-
         </div>
-
       </div>
-
-
     </Layout>
 
   );
