@@ -9,6 +9,7 @@ import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 function Register() {
 
     const [inputs, setInputs] = useState({});
+    const [postId, setPostId] = useState();
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -27,7 +28,7 @@ function Register() {
         };
         const response = await fetch('http://localhost:8080/login', requestOptions);
         const data = await response.json();
-        this.setState({ postId: data.id });
+        setPostId(data.id);
     }
 
     return (
