@@ -3,13 +3,7 @@ import HomeButton from "./HomeButton";
 import { useState } from "react";
 import React from "react";
 
-import {
-    MDBInput,
-    MDBCol,
-    MDBRow,
-    MDBCheckbox,
-    MDBBtn
-} from 'mdb-react-ui-kit';
+import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 
 
 function Register() {
@@ -23,15 +17,15 @@ function Register() {
         setInputs(values => ({ ...values, [name]: value }))
     }
 
-async function handleSubmit () {
-        // event.preventDefault();
-        // console.log(inputs);
+    async function handleSubmit(event) {
+        event.preventDefault();
+
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: 'React POST Request Example' })
+            body: JSON.stringify(inputs)
         };
-        const response = await fetch('http://localhost:8080', requestOptions);
+        const response = await fetch('http://localhost:8080/login', requestOptions);
         const data = await response.json();
         this.setState({ postId: data.id });
     }

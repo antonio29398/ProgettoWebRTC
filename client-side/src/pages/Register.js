@@ -9,18 +9,39 @@ import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 function Register() {
 
     const [inputs, setInputs] = useState({});
+    const [postId, setPostId] = useState();
+
     let navigate = useNavigate();
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
 
-        setInputs(values => ({ ...values, [name]: value }))
+        setInputs( (values) => ({ ...values, [name]: value }))
     }
 
-    const handleSubmit = (event) => {
+    async function handleSubmit (event) {
+
+        event.preventDefault();
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(inputs)
+        };
+        const response = await fetch('http://localhost:8080/register', requestOptions);
+        const data = await response.json();
+        setPostId(data.id);
+
+
+   //     if (/* Condizione di sucesso della query*/){
         alert("Registrazione completata!\nPremi OK per andare alla schermata di login.");
         navigate('/login', { replace: true });
+        // }
+        // else {
+        //     /* Cosa succede se fallisce la query */
+        //     alert("Registrazione fallita\nControllare i campi e ripetere la registrazione")
+        // }
     }
 
     return (
