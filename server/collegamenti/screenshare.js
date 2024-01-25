@@ -38,6 +38,7 @@ $(document).ready(function() {
 		// Use a button to start the demo
 		$('#start').one('click', function() {
 			$(this).attr('disabled', true).unbind('click');
+			$(this).removeClass("btn-primary").addClass("btn-danger");
 			// Make sure the browser supports WebRTC
 			if(!Janus.isWebrtcSupported()) {
 				bootbox.alert("No WebRTC support... ");
@@ -453,6 +454,8 @@ function listRooms(){
 			}
 			$('#select').removeClass('hide');
 			$('#connect').removeClass('hide');
+			$('#arr').removeClass('hide');
+			
 		}   
 	});
 
@@ -542,6 +545,7 @@ let stanza = parseInt($("#create").val());
 
 
 	$('#DivCreazione').hide();
+	$('#modalita3').hide();
 
 	sfutest.send({ message: create});
 

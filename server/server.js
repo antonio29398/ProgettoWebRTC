@@ -33,6 +33,10 @@ const jsonData = {
     username: 'esempio_username'
 };
 
+app.get('/icona.ico', function (requ,res){
+    res.sendFile(__dirname +'/icona.ico')}
+)
+
 // Richiesta dell'applicativo
 app.get ('/UniNaScreensharing', function (req,res) {
     res.sendFile(__dirname +'/index.html')});  

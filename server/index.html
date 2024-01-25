@@ -1,173 +1,243 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Janus WebRTC Server (multistream): Video Room Demo (multistream)</title>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/8.2.3/adapter.min.js" ></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js" ></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script type="text/javascript" src="settings.js" ></script>
-<script type="text/javascript" src="janus.js"></script>
-<script type="text/javascript" src="screenshare.js"></script>
 
-<script>
-	
-</script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/cerulean/bootstrap.min.css" type="text/css"/>
-<link rel="stylesheet" href="demo.css" type="text/css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" type="text/css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"/>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>UniNa Screensharing </title>
+	<link rel="icon" type="image/png"
+		href="https://upload.wikimedia.org/wikipedia/it/1/11/Napoli_university_seal_alfachannel.png">
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/8.2.3/adapter.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+	<script type="text/javascript" src="settings.js"></script>
+	<script type="text/javascript" src="janus.js"></script>
+	<script type="text/javascript" src="screenshare.js"></script>
+
+	<script>
+
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.2/cerulean/bootstrap.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="demo.css" type="text/css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+		type="text/css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
+
 <body class="bgImage">
 
 
 
 
-<div class="container" >
-	<div class="row">
-		<div class="col-md-12">
-			<div class="pb-2 mt-4 mb-2 border-bottom">
-				<h1>UniNa Screensharing  
-					<button class="btn btn-secondary" autocomplete="off" id="start">Start</button>
-				</h1>
-			</div>
-			
-			<div class="container mt-5 hide " id="videojoin">
-				
-				<span class="input-group-btn ">
-					<button class="btn btn-success" autocomplete="off" id="register">Join default room</button>
-				</span>
-				
-				<div class="row col-md-12">
-					<span class="badge bg-info" id="you"></span>
-					<div class="input-group mt-3 mb-1 hide" id="registernow">
-						<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-						<input autocomplete="off" class="form-control" autocomplete="off" type="text" placeholder="Choose a display name(ONLY CHARACTERS )" id="username"/>
-						
-						<span class="input-group-btn">
-							<button class="btn btn-success hide" autocomplete="off" id="select">Join selected room</button>
-						</span>
-						
+	<div class="container">
+		<div class="row" style="color:white">
+			<div class="col-md-12" style="text-align: center;">
+				<div class="pb-2 mt-4 mb-2" style="text-align: center;">
+					<h1 style="color: hsl(218, 81%, 75%); font-size:70px;">UniNa Screensharing
+						<button type="button" autocomplete="off" id="start" class="btn btn-success">Avvia</button>
+
+					</h1>
+				</div>
+
+				<div class="container mt-5 hide " id="videojoin">
+
+					<h3 style="color:white">Seleziona una delle possibili opzioni di utilizzo dell'applicazione.</h3>
+
+					<br> <br> <br>
+
+					<div class="col">
+						<div class="row ">
+							<h4 style="color:white">1. Partecipa alla room di default.</h4>
+						</div>
+
+						<p></p>
+
+						<div class="row ">
+							<button class="btn btn-primary" style="width: 80px; margin: auto;" autocomplete="off"
+								id="register">Entra</button>
+						</div>
+
+						<br> <br>
 					</div>
-				</div>
-			<br>
-				<!--div dedicata alla scelta della stanza a cui potersi collegare -->
-				<div id = "divRooms">
-					<span class="input-group-btn">
-						<button class="btn btn-success" autocomplete="off" id="choose">choose a room room</button>
 
-						<select id="arr">
-							<option>Dropdown Items</option>
-						</select>
-					</span>
-					
+					<div class="col align-self-center">
 
-					<div class="row col-md-12" id="DivCreazione">
-					<span class="badge bg-info" id="me"></span>
-					<div class="input-group mt-3 mb-1 " id="createR">
-						<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-						<input autocomplete="off" class="form-control" autocomplete="off" type="text" placeholder="Insert a room number" id="create"/>
-						
-						<span class="input-group-btn">
-							<button class="btn btn-success " autocomplete="off" id="bottoneCreaS">create room</button>
-						</span>
-						
-					</div>
-				</div>
+						<div class="row align-self-center">
+							<h4 style="color:white">2. Inserisci uno username e partecipa ad una stanza.</h4>
+						</div>
 
-					
+						<div class="row" style=" align-items: center;">
 
+							<div class="col">
+								<span class="badge bg-info" id="you"></span>
 
-				</div>
-				
-				
-			</div>
+								<span class="input-group-btn">
+									<button class="btn btn-primary" autocomplete="off" id="choose">Scegli
+										stanza</button>
 
-			
-			<div class="container mt-4 hide" id="videos">
-				<div class="row">
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-header">
-								<span class="card-title">Local Video <span class="badge bg-primary hide" id="publisher"></span>
-									<div class="btn-group btn-group-sm top-right hide">
-										<div class="btn-group btn-group-sm">
-											<button id="bitrateset" autocomplete="off" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-												Bandwidth
-											</button>
-											<ul id="bitrate" class="dropdown-menu" role="menu">
-												<a class="dropdown-item" href="#" id="0">No limit</a>
-												<a class="dropdown-item" href="#" id="128">Cap to 128kbit</a>
-												<a class="dropdown-item" href="#" id="256">Cap to 256kbit</a>
-												<a class="dropdown-item" href="#" id="512">Cap to 512kbit</a>
-												<a class="dropdown-item" href="#" id="1024">Cap to 1mbit</a>
-												<a class="dropdown-item" href="#" id="1500">Cap to 1.5mbit</a>
-												<a class="dropdown-item" href="#" id="2000">Cap to 2mbit</a>
-											</ul>
-										</div>
-									</div>
+									<select id="arr" class="hide">
+										<option></option>
+									</select>
 								</span>
 							</div>
-							<div class="card-body" id="videolocal"></div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-header">
-								<span class="card-title">Remote Video #1 <span class="badge bg-info hide" id="remote1"></span></span>
+
+							<div class="col">
+								<div class="input-group mt-3 mb-1 hide" id="registernow">
+									<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+									<input autocomplete="off" class="form-control" autocomplete="off" type="text"
+										placeholder="Scegli uno username (SOLO CARATTERI)" id="username" />
+
+									<span class="input-group-btn">
+										<button class="btn btn-primary hide" autocomplete="off" id="select">Unisciti
+											alla stanza</button>
+									</span>
+
+								</div>
 							</div>
-							<div class="card-body relative" id="videoremote1"></div>
+
 						</div>
+
+
 					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-header">
-								<span class="card-title">Remote Video #2 <span class="badge bg-info hide" id="remote2"></span></span>
+
+					<br> <br>
+
+					<!--div dedicata alla scelta della stanza a cui potersi collegare -->
+
+					<div class="col text-center">
+						<div class="row align-self-center" style="text-align: center">
+							<h4 id="modalita3" style="color: white;">3. Crea una room a cui poter partecipare nella
+								modalità 2.</h4>
+						</div>
+
+						<div class="row">
+							<div id="divRooms">
+
+								<div class="row col-md-12" id="DivCreazione">
+									<span class="badge bg-info" id="me"></span>
+									<div class="input-group mt-3 mb-1 " id="createR" style="width: 550px; margin: auto">
+										<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+										<input autocomplete="off" class="form-control" autocomplete="off" type="text"
+											placeholder="Insersci il numero della stanza che vuoi creare" id="create" />
+
+										<span class="input-group-btn">
+											<button class="btn btn-primary " autocomplete="off" id="bottoneCreaS">Crea
+												la stanza</button>
+										</span>
+
+									</div>
+								</div>
+
+								<br><br><br><br><br><br>
+
+
 							</div>
-							<div class="card-body relative" id="videoremote2"></div>
 						</div>
+
 					</div>
+
+
 				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-header">
-								<span class="card-title">Remote Video #3 <span class="badge bg-info hide" id="remote3"></span></span>
+
+
+				<div class="container mt-4 hide" id="videos">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-title">Local Video <span class="badge bg-primary hide"
+											id="publisher"></span>
+										<div class="btn-group btn-group-sm top-right hide">
+											<div class="btn-group btn-group-sm">
+												<button id="bitrateset" autocomplete="off"
+													class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+													Bandwidth
+												</button>
+												<ul id="bitrate" class="dropdown-menu" role="menu">
+													<a class="dropdown-item" href="#" id="0">No limit</a>
+													<a class="dropdown-item" href="#" id="128">Cap to 128kbit</a>
+													<a class="dropdown-item" href="#" id="256">Cap to 256kbit</a>
+													<a class="dropdown-item" href="#" id="512">Cap to 512kbit</a>
+													<a class="dropdown-item" href="#" id="1024">Cap to 1mbit</a>
+													<a class="dropdown-item" href="#" id="1500">Cap to 1.5mbit</a>
+													<a class="dropdown-item" href="#" id="2000">Cap to 2mbit</a>
+												</ul>
+											</div>
+										</div>
+									</span>
+								</div>
+								<div class="card-body" id="videolocal"></div>
 							</div>
-							<div class="card-body relative" id="videoremote3"></div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-title">Remote Video #1 <span class="badge bg-info hide"
+											id="remote1"></span></span>
+								</div>
+								<div class="card-body relative" id="videoremote1"></div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-title">Remote Video #2 <span class="badge bg-info hide"
+											id="remote2"></span></span>
+								</div>
+								<div class="card-body relative" id="videoremote2"></div>
+							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-header">
-								<span class="card-title">Remote Video #4 <span class="badge bg-info hide" id="remote4"></span></span>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-title">Remote Video #3 <span class="badge bg-info hide"
+											id="remote3"></span></span>
+								</div>
+								<div class="card-body relative" id="videoremote3"></div>
 							</div>
-							<div class="card-body relative" id="videoremote4"></div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="card">
-							<div class="card-header">
-								<span class="card-title">Remote Video #5 <span class="badge bg-info hide" id="remote5"></span></span>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-title">Remote Video #4 <span class="badge bg-info hide"
+											id="remote4"></span></span>
+								</div>
+								<div class="card-body relative" id="videoremote4"></div>
 							</div>
-							<div class="card-body relative" id="videoremote5"></div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<span class="card-title">Remote Video #5 <span class="badge bg-info hide"
+											id="remote5"></span></span>
+								</div>
+								<div class="card-body relative" id="videoremote5"></div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 	</div>
 
-	
-</div>
-
 </body>
+
 </html>
