@@ -6,7 +6,7 @@ import React from "react";
 import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 
 
-function Register() {
+function Login() {
 
     const [inputs, setInputs] = useState({});
     const [postId, setPostId] = useState();
@@ -26,9 +26,18 @@ function Register() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs)
         };
+
+       
         const response = await fetch('http://localhost:8080/login', requestOptions);
-        const data = await response.json();
-        setPostId(data.id);
+       
+        // const data = await response.json();
+        
+        
+        // if(data.body.lenght === 0){
+            alert("vuoto");
+            window.location.reload();
+        // }
+        // setPostId(data.id);
     }
 
     return (
@@ -57,4 +66,4 @@ function Register() {
 
 }
 
-export default Register;
+export default Login;
