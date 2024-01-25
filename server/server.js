@@ -82,7 +82,8 @@ app.post('/register', cors(corsOptions), function (req, res) {
 
   
 // se l'utente già esiste non lo inserisco e comunico al client(DA GESTIRE), se c'è tutt appost
-  const insert = 'INSERT  ignore INTO utenti.credenziali (nome,cognome, email, username, password) VALUES (?, ?, ?, ?, ?) '
+
+  const insert = 'INSERT  ignore INTO utenti.credenziali (username, password, nome,cognome, email ) VALUES (?, ?, ?, ?, ?) '
 
   // query
   database.query(insert, [user, pass, nome, cognome, email])

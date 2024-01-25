@@ -9,7 +9,7 @@ import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 function Login() {
 
     const [inputs, setInputs] = useState({});
-    const [postId, setPostId] = useState();
+    // const [postId, setPostId] = useState();
 
     const handleChange = (event) => {
         const name = event.target.name;
