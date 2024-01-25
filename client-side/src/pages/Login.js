@@ -2,14 +2,14 @@ import Layout from "./Layout";
 import HomeButton from "./HomeButton";
 import { useState } from "react";
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 
 
 function Login() {
 
     const [inputs, setInputs] = useState({});
-    // const [postId, setPostId] = useState();
+    let navigate = useNavigate();
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -27,17 +27,24 @@ function Login() {
             body: JSON.stringify(inputs)
         };
 
-       
+
         const response = await fetch('http://localhost:8080/login', requestOptions);
-       
-        // const data = await response.json();
-        
-        
-        // if(data.body.lenght === 0){
-            alert("vuoto");
+        const data = await response.json();
+
+
+        // Handling dell'esito del login
+        if (data.message === "credenziali errate") {
+            alert("Credenziali errate.\nPremi OK per reinserire i dati.");
             window.location.reload();
-        // }
-        // setPostId(data.id);
+        }
+        else if (data.message === "credenziali valide") {
+            alert("Credenziali valide!\nPremi OK per continuare su UniNa Screensharing.");
+            navigate('/UniNaScreensharing', { replace: true });
+        }
+        else {
+            alert("Qualcosa è andato storto. Premi ok per riprovare.");
+            window.location.reload();
+        }
     }
 
     return (

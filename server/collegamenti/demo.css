@@ -149,3 +149,8 @@ pre {
 		color: #FFD700;
 	}
 }
+
+.bgImage {
+	background-image: url('logo-uni.png');
+	background-color: black;
+}
