@@ -1,0 +1,24 @@
+.bg-glass {
+  background-color: hsla(180, 2%, 22%, 0.753);
+  backdrop-filter: saturate(200%) blur(25px);
+}
+
+.home-box {
+  margin: auto;
+
+}
+
+.layout-design {
+  min-width: 100oh;
+  margin: auto;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(0, 0%, 0%);
+  background-attachment: fixed;
+
+}
+
+.label-bianca {
+  color: hsl(0, 0%, 100%);
+}
