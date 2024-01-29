@@ -397,7 +397,7 @@ $(document).ready(function() {
 									Janus.log(" ::: Got a cleanup notification: we are unpublished now :::");
 									mystream = null;
 									delete feedStreams[myid];
-									$('#videolocal').html('<button id="publish" class="btn btn-primary">Publish</button>');
+									$('#videolocal').html('<button type="button" class="btn btn-secondary" id="publish" style="color: black">Abilita</button>');
 									$('#publish').click(function() { publishOwnFeed(true); });
 									$("#videolocal").parent().parent().unblock();
 									$('#bitrate').parent().parent().addClass('hide');
