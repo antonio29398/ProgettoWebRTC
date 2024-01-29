@@ -45,6 +45,7 @@ function Login() {
             alert("Qualcosa è andato storto. Premi ok per riprovare.");
             window.location.reload();
         }
+t
     }
 
     return (

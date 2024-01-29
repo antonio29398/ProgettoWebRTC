@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>UniNa Screensharing </title>
 	<link rel="icon" type="image/png"
-		href="https://upload.wikimedia.org/wikipedia/it/1/11/Napoli_university_seal_alfachannel.png">
+		href="http://localhost:8080/logo-uni.png">
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/8.2.3/adapter.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -53,7 +53,10 @@
 					</h1>
 				</div>
 
-				<div class="container mt-5 hide " id="videojoin">
+				<div class="container mt-5 hide" 
+					style="background-color: hsla(180, 2%, 22%, 0.753); backdrop-filter: saturate(200%) blur(25px);" id="videojoin">
+
+					<br><br>
 
 					<h3 style="color:white">Seleziona una delle possibili opzioni di utilizzo dell'applicazione.</h3>
 
@@ -142,7 +145,7 @@
 									</div>
 								</div>
 
-								<br><br><br><br><br><br>
+								<br><br>
 
 
 							</div>
@@ -150,34 +153,24 @@
 
 					</div>
 
+					
+
 
 				</div>
 
+				<br><br>
 
-				<div class="container mt-4 hide" id="videos">
+
+
+				<div class="container mt-4 hide" id="videos"
+					style="background-color: hsla(180, 2%, 22%, 0.753); backdrop-filter: saturate(200%) blur(25px);">
+					<br> <br>
 					<div class="row">
 						<div class="col-md-4">
 							<div class="card">
 								<div class="card-header">
-									<span class="card-title">Local Video <span class="badge bg-primary hide"
+									<span class="card-title">Video Locale<span class="badge bg-primary hide"
 											id="publisher"></span>
-										<div class="btn-group btn-group-sm top-right hide">
-											<div class="btn-group btn-group-sm">
-												<button id="bitrateset" autocomplete="off"
-													class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-													Bandwidth
-												</button>
-												<ul id="bitrate" class="dropdown-menu" role="menu">
-													<a class="dropdown-item" href="#" id="0">No limit</a>
-													<a class="dropdown-item" href="#" id="128">Cap to 128kbit</a>
-													<a class="dropdown-item" href="#" id="256">Cap to 256kbit</a>
-													<a class="dropdown-item" href="#" id="512">Cap to 512kbit</a>
-													<a class="dropdown-item" href="#" id="1024">Cap to 1mbit</a>
-													<a class="dropdown-item" href="#" id="1500">Cap to 1.5mbit</a>
-													<a class="dropdown-item" href="#" id="2000">Cap to 2mbit</a>
-												</ul>
-											</div>
-										</div>
 									</span>
 								</div>
 								<div class="card-body" id="videolocal"></div>
@@ -186,7 +179,7 @@
 						<div class="col-md-4">
 							<div class="card">
 								<div class="card-header">
-									<span class="card-title">Remote Video #1 <span class="badge bg-info hide"
+									<span class="card-title">Video Remoto 1<span class="badge bg-info hide"
 											id="remote1"></span></span>
 								</div>
 								<div class="card-body relative" id="videoremote1"></div>
@@ -195,18 +188,21 @@
 						<div class="col-md-4">
 							<div class="card">
 								<div class="card-header">
-									<span class="card-title">Remote Video #2 <span class="badge bg-info hide"
+									<span class="card-title">Video Remoto 2<span class="badge bg-info hide"
 											id="remote2"></span></span>
 								</div>
 								<div class="card-body relative" id="videoremote2"></div>
 							</div>
 						</div>
 					</div>
+
+					<br>
+
 					<div class="row">
 						<div class="col-md-4">
 							<div class="card">
 								<div class="card-header">
-									<span class="card-title">Remote Video #3 <span class="badge bg-info hide"
+									<span class="card-title">Video Remoto 3<span class="badge bg-info hide"
 											id="remote3"></span></span>
 								</div>
 								<div class="card-body relative" id="videoremote3"></div>
@@ -215,7 +211,7 @@
 						<div class="col-md-4">
 							<div class="card">
 								<div class="card-header">
-									<span class="card-title">Remote Video #4 <span class="badge bg-info hide"
+									<span class="card-title">Video Remoto 4<span class="badge bg-info hide"
 											id="remote4"></span></span>
 								</div>
 								<div class="card-body relative" id="videoremote4"></div>
@@ -224,14 +220,18 @@
 						<div class="col-md-4">
 							<div class="card">
 								<div class="card-header">
-									<span class="card-title">Remote Video #5 <span class="badge bg-info hide"
+									<span class="card-title">Video Remoto 5<span class="badge bg-info hide"
 											id="remote5"></span></span>
 								</div>
 								<div class="card-body relative" id="videoremote5"></div>
 							</div>
 						</div>
 					</div>
+
+					<br> <br>
+
 				</div>
+				<br> <br> <br> <br>
 			</div>
 		</div>
 
