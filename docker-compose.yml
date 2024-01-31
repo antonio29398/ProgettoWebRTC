@@ -54,7 +54,7 @@ services:
     - "8000:8000"
     
     volumes:
-    - ./ProgettoWebRTC:/home/ProgettoWebRTC
+    - ./:/home/ProgettoWebRTC
 
     command: bash -c " cd  /home/ProgettoWebRTC/server && npm start " 
 

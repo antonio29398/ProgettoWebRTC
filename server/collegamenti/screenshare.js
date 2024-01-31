@@ -91,7 +91,7 @@ $(document).ready(function() {
 									if(on) {
 										// Darken screen and show hint
 										$.blockUI({
-											message: '<div><img src="up_arrow.png"/></div>',
+											message: '<h5 style="text-size: 20px">Consenti l&apos;uso del microfono<br>e la condivisione dello schermo.</h5>',
 											baseZ: 3001,
 											css: {
 												border: 'none',
@@ -347,10 +347,10 @@ $(document).ready(function() {
 									$('#videos').removeClass('hide');
 									if($('#mute').length === 0) {
 										// Add a 'mute' button
-										$('#videolocal').append('<button class="btn btn-warning btn-xs" id="mute" style="position: absolute; bottom: 0px; left: 0px; margin: 15px;">Mute</button>');
+										$('#videolocal').append('<button type="button" class="btn btn-secondary" id="mute" style="position: absolute; bottom: 0px; left: 0px; margin: 5px;"> <img src="http://localhost:8080/unmute.png" alt="Mute" style="width:25px;height:25px;"> </img> </button>');
 										$('#mute').click(toggleMute);
 										// Add an 'unpublish' button
-										$('#videolocal').append('<button class="btn btn-warning btn-xs" id="unpublish" style="position: absolute; bottom: 0px; right: 0px; margin: 15px;">Unpublish</button>');
+										$('#videolocal').append('<button type="button" class="btn btn-secondary" id="unpublish" style="position: absolute; bottom: 0px; right: 0px; margin: 5px;"> <img src="http://localhost:8080/screen-off.png" alt="Unpublish" style="width:25px;height:25px;"> </img> </button>');
 										$('#unpublish').click(unpublishOwnFeed);
 									}
 									if(track.kind === "audio") {
@@ -397,7 +397,7 @@ $(document).ready(function() {
 									Janus.log(" ::: Got a cleanup notification: we are unpublished now :::");
 									mystream = null;
 									delete feedStreams[myid];
-									$('#videolocal').html('<button id="publish" class="btn btn-primary">Publish</button>');
+									$('#videolocal').html('<button type="button" class="btn btn-secondary" id="publish" style="color: black">Abilita</button>');
 									$('#publish').click(function() { publishOwnFeed(true); });
 									$("#videolocal").parent().parent().unblock();
 									$('#bitrate').parent().parent().addClass('hide');
@@ -654,13 +654,16 @@ function publishOwnFeed(useAudio) {
 
 function toggleMute() {
 	let muted = sfutest.isAudioMuted();
+	console.log("Il valore muted = ", muted);
 	Janus.log((muted ? "Unmuting" : "Muting") + " local stream...");
 	if(muted)
 		sfutest.unmuteAudio();
-	else
+	else 
 		sfutest.muteAudio();
+	
 	muted = sfutest.isAudioMuted();
-	$('#mute').html(muted ? "Unmute" : "Mute");
+	$('#mute').html(muted ? '<img src="http://localhost:8080/mute.png" alt="Mute" style="width:25px;height:25px;">' : '<img src="http://localhost:8080/unmute.png" alt="Unmute" style="width:25px;height:25px;">');
+
 }
 
 function unpublishOwnFeed() {

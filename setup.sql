@@ -12,9 +12,10 @@ CREATE TABLE IF NOT EXISTS utenti.credenziali (
     password VARCHAR(45) NOT NULL,
     nome VARCHAR(45) NOT NULL,
     cognome VARCHAR(45) NOT NULL,
-    email VARCHAR(45) UNIQUE NOT NULL
+    email VARCHAR(45) UNIQUE NOT NULL,
+    token VARCHAR(45) UNIQUE NOT NULL
 );
-INSERT INTO utenti.credenziali  (username, password, nome, cognome, email) VALUES ('admin', 'admin', 'Ad', 'Min', 'admin@example.com');
+INSERT INTO utenti.credenziali  (username, password, nome, cognome, email, token) VALUES ('admin', 'admin', 'Ad', 'Min', 'admin@example.com', 'admintoken');
 -- INSERT INTO utenti.credenziali (username, password, nome, cognome, email) VALUES ('admin', 'admin', 'John', 'Doe', 'admin@example.com');
 -- CREATE TABLE IF NOT EXISTS utenti.credenziali ( 
 --   id INT PRIMARY KEY AUTO_INCREMENT,

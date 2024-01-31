@@ -1,9 +1,24 @@
 var app = require('express')();
 var http = require('http').Server(app);
 const cors = require('cors');
-const express = require('express');
+const express = require('express')
 const database = require('./databaseConfig');
+const { v4: uuidv4 } = require('uuid');
+const session = require('express-session');
 
+
+// Aggiungo il token come variabile di sessione
+app.use(session({
+    secret: 'pippozzo',
+    saveUninitialized: true,
+    resave: false,
+    rolling: true,
+    cookie: {
+        name: 'sessionCookie',
+        maxAge: 3600000, // Durata massima del cookie in millisecondi (ad esempio, 1 ora)
+        httpOnly: true,
+    }
+}))
 
 // Folder risorse statiche
 app.use(express.static("collegamenti"));
@@ -22,8 +37,8 @@ app.use(express.json())
 
 // Utilizzo il package cors per consentire l'invio di risorse dal
 // sito da cui è previsto l'invio del login
-app.use(cors());
-var corsOptions = { origin: 'http://localhost:3000' }
+var corsOptions = { origin: 'http://localhost:3000', credentials: true }
+app.use(cors(corsOptions));
 
 
 // Configurazione delle risposte a richieste http
@@ -33,16 +48,58 @@ const jsonData = {
     username: 'esempio_username'
 };
 
-app.get('/icona.ico', function (requ,res){
-    res.sendFile(__dirname +'/icona.ico')}
+// Favicon
+app.get('/icona.ico', function (req, res) {
+    res.sendFile(__dirname + '/icona.ico')
+}
 )
 
-// Richiesta dell'applicativo
-app.get ('/UniNaScreensharing', function (req,res) {
-    res.sendFile(__dirname +'/index.html')});  
+// Middleware per verificare l'autenticazione
+const verificaAutenticazione = (req, res, next) => {
+
+    if (req.session.token === "no-token" || req.session.token === undefined) {
+        // Prosegui con la richiesta se l'utente è autenticato
+        res.status(401).sendFile(__dirname + '/collegamenti/no-auth.html');
+        console.log("Non autenticato. Token: ", req.session)
+    } else {
+
+        const getToken = 'SELECT token FROM credenziali where username = ?'
+        let username = req.session.user;
+
+        database.query(getToken, [username])
+
+            // res.send viene fatto nel then perché è l'ultima parte di codice ad essere
+            // eseguita, inoltre, siamo sicuri che questa query vada a buon fine
+            // (passa già un check su login valido!)
+            .then((results) => {
+
+                console.log(req.session.token)
+                if (results[0].token === req.session.token)
+                    next();
+                else
+                    // Rispondi con un errore se non esiste l'utente
+                    res.status(401).send('Il token non corrisponde all&apos;utente');
+
+            })
+            .catch((err) => {
+                console.error("Errore della query token: ", err);
+            })
+
+        console.log("Autenticato. Token: ", req.session.token)
+
+    }
+};
+
+app.get('/UniNaScreensharing', verificaAutenticazione, function (req, res) {
+    res.sendFile(__dirname + '/index.html')
+});
+
 
 // LOGIN
-app.post('/login', cors(corsOptions), function (req, res) {
+// Aggiungi gestione OPTIONS
+app.options('/login');
+
+app.post('/login', function (req, res) {
     console.log("postFunziona");
 
     const user = req.body.username;
@@ -54,6 +111,7 @@ app.post('/login', cors(corsOptions), function (req, res) {
 
     // Richiesta al db per verificare l'esistenza di un utente registrato
     const query = 'SELECT * FROM credenziali where username = ? and password = ?'
+    const getToken = 'SELECT token FROM credenziali where username = ?'
 
     database.query(query, [user, pass])
         .then((results) => {
@@ -64,7 +122,26 @@ app.post('/login', cors(corsOptions), function (req, res) {
                 res.send({ message: "credenziali errate" });
             }
             else {
-                res.send({ message: "credenziali valide" });
+                database.query(getToken, [user])
+
+                    // res.send viene fatto nel then perché è l'ultima parte di codice ad essere
+                    // eseguita, inoltre, siamo sicuri che questa query vada a buon fine
+                    // (passa già un check su login valido!)
+                    .then((results) => {
+
+                        let token = results[0].token;
+                        req.session.token = token;
+                        console.log("Setto il token a: ", req.session.token)
+                        req.session.save(() => {
+                            res.send({ message: "credenziali valide" });
+                        });
+                    })
+                    .catch((err) => {
+                        console.error("Errore della query token: ", err);
+                    })
+
+                req.session.user = user;
+
             }
 
         })
@@ -84,7 +161,7 @@ app.post('/login', cors(corsOptions), function (req, res) {
 
 
 // REGISTER
-app.post('/register', cors(corsOptions), function (req, res) {
+app.post('/register', function (req, res) {
     console.log("postFunziona");
 
     const user = req.body.username;
@@ -97,7 +174,7 @@ app.post('/register', cors(corsOptions), function (req, res) {
     database.connect();
 
     // Chiedo al database di inserire l'utente. Se già esiste l'operazione non viene effettuata.
-    const insert = 'INSERT  ignore INTO utenti.credenziali (username, password, nome, cognome, email ) VALUES (?, ?, ?, ?, ?) '
+    const insert = 'INSERT ignore INTO utenti.credenziali (username, password, nome, cognome, email) VALUES (?, ?, ?, ?, ?) '
 
     database.query(insert, [user, pass, nome, cognome, email])
         .then((results) => {
@@ -105,9 +182,16 @@ app.post('/register', cors(corsOptions), function (req, res) {
 
             // In base all'esito della query invio il messaggio corretto al client
             if (results.affectedRows > 0) {
-                res.send({message: "utente creato"});
+
+                const token = uuidv4();
+
+                const updatetoken = 'UPDATE utenti.credenziali SET token = ? WHERE username = ?;'
+                database.query(updatetoken, [token, user])
+
+                res.send({ message: "utente creato" });
+
             } else {
-                res.send({message: "utente già esistente"});
+                res.send({ message: "utente già esistente" });
             }
 
         })
