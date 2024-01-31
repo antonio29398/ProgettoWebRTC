@@ -347,10 +347,10 @@ $(document).ready(function() {
 									$('#videos').removeClass('hide');
 									if($('#mute').length === 0) {
 										// Add a 'mute' button
-										$('#videolocal').append('<button type="button" class="btn btn-secondary" id="mute" style="position: absolute; bottom: 0px; left: 0px; margin: 5px;"> <img src="http://localhost:8080/unmute.png" alt="Mute" style="width:25px;height:25px;"> </img> </button>');
+										$('#videolocal').append('<button type="button" class="btn btn-secondary" id="mute" style="position: absolute; bottom: 0px; left: 0px; margin: 5px;"> <img src="http://localhost:8000/unmute.png" alt="Mute" style="width:25px;height:25px;"> </img> </button>');
 										$('#mute').click(toggleMute);
 										// Add an 'unpublish' button
-										$('#videolocal').append('<button type="button" class="btn btn-secondary" id="unpublish" style="position: absolute; bottom: 0px; right: 0px; margin: 5px;"> <img src="http://localhost:8080/screen-off.png" alt="Unpublish" style="width:25px;height:25px;"> </img> </button>');
+										$('#videolocal').append('<button type="button" class="btn btn-secondary" id="unpublish" style="position: absolute; bottom: 0px; right: 0px; margin: 5px;"> <img src="http://localhost:8000/screen-off.png" alt="Unpublish" style="width:25px;height:25px;"> </img> </button>');
 										$('#unpublish').click(unpublishOwnFeed);
 									}
 									if(track.kind === "audio") {
@@ -662,7 +662,7 @@ function toggleMute() {
 		sfutest.muteAudio();
 	
 	muted = sfutest.isAudioMuted();
-	$('#mute').html(muted ? '<img src="http://localhost:8080/mute.png" alt="Mute" style="width:25px;height:25px;">' : '<img src="http://localhost:8080/unmute.png" alt="Unmute" style="width:25px;height:25px;">');
+	$('#mute').html(muted ? '<img src="http://localhost:8000/mute.png" alt="Mute" style="width:25px;height:25px;">' : '<img src="http://localhost:8000/unmute.png" alt="Unmute" style="width:25px;height:25px;">');
 
 }
 

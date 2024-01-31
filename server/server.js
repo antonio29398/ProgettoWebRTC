@@ -24,7 +24,7 @@ app.use(session({
 app.use(express.static("collegamenti"));
 
 // Server http in ascolto
-var port = 8080;
+var port = 8000;
 
 http.listen(port, function () {
     console.log('Listening on port ' + port + '...');

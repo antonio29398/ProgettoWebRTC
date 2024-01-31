@@ -2,11 +2,11 @@ var mysql = require('mysql2');
 
 
 const dbConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
+    host: '194.20.1.3',
+    user: 'guest',
+    password: 'prova',
     database: 'utenti',
-    port: 13306,
+    port: 3306,
   };
   
 

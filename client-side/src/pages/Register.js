@@ -27,7 +27,7 @@ function Register() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs)
         };
-        const response = await fetch('http://localhost:8080/register', requestOptions);
+        const response = await fetch('http://localhost:8000/register', requestOptions);
         const data = await response.json();
 
         // Handling della risposta al tentativo di registrazione

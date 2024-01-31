@@ -6,7 +6,7 @@ function UniNaScreensharing() {
     useEffect(() => {
 
         // Effettua il reindirizzamento al caricamento della pagina
-        window.location.href = "http://localhost:8080/UniNaScreensharing";
+        window.location.href = "http://localhost:8000/UniNaScreensharing";
     }, []);  // La dipendenza vuota indica che useEffect deve essere eseguito solo una volta al caricamento
 
     return (

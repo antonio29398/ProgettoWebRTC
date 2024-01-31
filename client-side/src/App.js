@@ -6,7 +6,6 @@ import Register from './pages/Register'
 import React from 'react';
 
 import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from 'react-auth-kit'
 import UniNaScreensharing from './pages/Uninascreensharing';
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-        <Route path="/UniNaScreensharing" element={<UniNaScreensharing />} />
+      <Route path="/UniNaScreensharing" element={<UniNaScreensharing />} />
 
     </Routes>
   )
