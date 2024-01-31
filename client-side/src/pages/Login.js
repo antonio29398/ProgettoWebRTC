@@ -24,12 +24,14 @@ function Login() {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(inputs)
+            body: JSON.stringify(inputs),
+            credentials: 'include',
         };
 
 
         const response = await fetch('http://localhost:8080/login', requestOptions);
         const data = await response.json();
+
 
 
         // Handling dell'esito del login
