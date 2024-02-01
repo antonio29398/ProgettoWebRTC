@@ -10,6 +10,7 @@ var sfutest = null;
 var opaqueId = "videoroomtest-"+Janus.randomString(12);
 
 var myroom = 1234;	// Demo room
+
 if(getQueryStringValue("room") !== "")
 	myroom = parseInt(getQueryStringValue("room"));
 var myusername = null;
@@ -73,7 +74,7 @@ $(document).ready(function() {
 									$('#select').click(SelectRoom);
 									//ROBA MIA(bottone per richiedere la lista di stanze disponibili )
 									$('#choose').click(listRooms);
-									//bottone creazione stanza
+									//bottone creazione stanza 
 									$('#bottoneCreaS').click(createRoom);
 									$('#username').focus();
 									$('#start').removeAttr('disabled').html("Stop")
@@ -467,7 +468,7 @@ function SelectRoom(){
 
 	
 	//prendo la stanza selezionata, faccio il parsing perché di default mi viene restituito un "val"
-	let stanza = parseInt($("#arr option:selected").val());
+	myroom = parseInt($("#arr option:selected").val());
 
 	let displayName = $('#username').val();
 
@@ -477,7 +478,7 @@ function SelectRoom(){
 	//richiesta d join
 	let log = {
 		request: "join",
-		room: stanza,
+	    room: myroom,
 		ptype: "publisher",
 		display: displayName
 	};
@@ -501,7 +502,8 @@ if (input === ""){
 }
 
 
-let stanza = parseInt($("#create").val());
+
+let myroom = parseInt($("#create").val());
 
 	let list = {
 		request: "list"
@@ -528,7 +530,7 @@ let stanza = parseInt($("#create").val());
 	
 
 	for (let j in rooms){
-		if(rooms[j] === stanza){
+		if(rooms[j] === myroom){
 			alert("La stanza esiste già")
 			return;
 		}
@@ -536,7 +538,7 @@ let stanza = parseInt($("#create").val());
 
 	let create = {
 		request: "create",
-		room: stanza,
+		room: myroom,
 		publishers: 6,
 		bitrate: 128000,
 		fir_freq: 10, 	
@@ -815,7 +817,7 @@ function subscribeTo(sources) {
 				// We wait for the plugin to send us an offer
 				let subscribe = {
 					request: "join",
-					room: myroom,
+					room: myroom, // questo è l'errore di "feed", quando mi collego ad una stanza che ho creato io il questo join lo faceva nella stanza di defalut
 					ptype: "subscriber",
 					streams: subscription,
 					use_msid: use_msid,
