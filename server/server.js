@@ -15,7 +15,7 @@ app.use(session({
     rolling: true,
     cookie: {
         name: 'sessionCookie',
-        maxAge: 3600000, // Durata massima del cookie in millisecondi (ad esempio, 1 ora)
+        maxAge: 3600000, // Expires in 1h
         httpOnly: true,
     }
 }))
@@ -57,27 +57,28 @@ app.get('/icona.ico', function (req, res) {
 // Middleware per verificare l'autenticazione
 const verificaAutenticazione = (req, res, next) => {
 
-    if (req.session.token === "no-token" || req.session.token === undefined) {
-        // Prosegui con la richiesta se l'utente è autenticato
+    // Se il token non viene trovato mostra l'errore di autenticazione 
+    if (req.session.token === undefined) {
         res.status(401).sendFile(__dirname + '/resources/no-auth.html');
         console.log("Non autenticato. Token: ", req.session)
     } else {
 
+        // Altrimenti controlla che il token associato all'utente che cerca di
+        // entrare è effettivamente quello corretto
         const getToken = 'SELECT token FROM credenziali where username = ?'
         let username = req.session.user;
 
         database.query(getToken, [username])
-
-            // res.send viene fatto nel then perché è l'ultima parte di codice ad essere
-            // eseguita, inoltre, siamo sicuri che questa query vada a buon fine
-            // (passa già un check su login valido!)
-            .then((results) => {
+        
+             .then((results) => {
 
                 console.log(req.session.token)
+
+                // Se il token corrispone allora fornisci la risorsa /UniNaScreensharing
                 if (results[0].token === req.session.token)
                     next();
                 else
-                    // Rispondi con un errore se non esiste l'utente
+                    // Rispondi con un errore se il token associato all'utente non è corretto
                     res.status(401).send('Il token non corrisponde all&apos;utente');
 
             })
@@ -90,13 +91,14 @@ const verificaAutenticazione = (req, res, next) => {
     }
 };
 
+// Gestione della richiesta get con autenticazione
 app.get('/UniNaScreensharing', verificaAutenticazione, function (req, res) {
     res.sendFile(__dirname + '/index.html')
 });
 
 
 // LOGIN
-// Aggiungi gestione OPTIONS
+// Necessaria per la preflight dovuta ai cookies
 app.options('/login');
 
 app.post('/login', function (req, res) {
@@ -140,6 +142,7 @@ app.post('/login', function (req, res) {
                         console.error("Errore della query token: ", err);
                     })
 
+                // Setta l'utente della sessione necessario per l'autenticazione
                 req.session.user = user;
 
             }
