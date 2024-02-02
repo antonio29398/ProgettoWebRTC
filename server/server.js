@@ -37,7 +37,7 @@ app.use(express.json())
 
 // Utilizzo il package cors per consentire l'invio di risorse dal
 // sito da cui è previsto l'invio del login
-var corsOptions = { origin: 'http://localhost:3000', credentials: true }
+var corsOptions = { origin: ['http://localhost:3000','https://localhost:443'], credentials: true, optionSuccessStatus:200 }
 app.use(cors(corsOptions));
 
 
