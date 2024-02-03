@@ -15,7 +15,7 @@ app.use(session({
     rolling: true,
     cookie: {
         name: 'sessionCookie',
-        maxAge: 3600000, // Durata massima del cookie in millisecondi (ad esempio, 1 ora)
+        maxAge: 3600000, // Expires in 1h
         httpOnly: false,
         secure: false, // Imposta a true se stai usando HTTPS
     }
@@ -38,7 +38,7 @@ app.use(express.json())
 
 // Utilizzo il package cors per consentire l'invio di risorse dal
 // sito da cui è previsto l'invio del login
-var corsOptions = { origin: ['http://localhost:3000', 'https://localhost', 'https://localhost/server'], credentials: true, optionSuccessStatus: 200 }
+var corsOptions = { origin: ['http://localhost:3000', 'https://localhost'], credentials: true}
 app.use(cors(corsOptions));
 
 
@@ -153,7 +153,6 @@ app.post('/login', function (req, res) {
                         res.status(500).send('Errore interno del server');
                     })
 
-                req.session.user = user;
 
             }
 

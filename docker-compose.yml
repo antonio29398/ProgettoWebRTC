@@ -24,8 +24,7 @@ services:
   mysql:
     image: "mysql:latest"
     container_name : 'mysqlCompose'
-    ports:
-    - "13306:3306"
+    
     environment:
     # Password for root access
       MYSQL_ROOT_PASSWORD: 'password'
@@ -47,10 +46,9 @@ services:
 
     command:  bash -c "/opt/janus/bin/janus "
 
-    ports:
+    ports: 
     - "8088:8088"
-    - "8089:8089"
-
+  
     restart: always
     networks:
       network_compose:
@@ -61,9 +59,6 @@ services:
     image: "antonio29398/ubuntuserver:v5"
     container_name : 'serverCompose'
     
-    ports:
-    - "8000:8000"
-    - "3000:3000"
     
     volumes:
     - ./:/home/ProgettoWebRTC

@@ -27,13 +27,13 @@ function Register() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs)
         };
-        const response = await fetch('http://localhost:8000/register', requestOptions);
+        const response = await fetch('https://localhost/server/register', requestOptions);
         const data = await response.json();
 
         // Handling della risposta al tentativo di registrazione
         if (data.message === "utente creato") {
             alert("Registrazione completata!\nPremi OK per andare alla schermata di login.");
-            navigate('/login', { replace: true });
+            navigate('/accedi', { replace: true });
         }
         else if (data.message === "utente già esistente") {
             alert("Registrazione fallita.\nControllare i campi e ripetere la registrazione.")
