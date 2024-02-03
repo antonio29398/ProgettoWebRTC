@@ -22,7 +22,7 @@ app.use(session({
 }))
 
 // Folder risorse statiche
-app.use(express.static("collegamenti"));
+app.use(express.static("resources"));
 
 // Server http in ascolto
 var port = 8000;
@@ -64,7 +64,7 @@ const verificaAutenticazione = (req, res, next) => {
     
     if (req.session.token === undefined) {
         // Prosegui con la richiesta se l'utente è autenticato
-        res.status(401).sendFile(__dirname + '/collegamenti/no-auth.html');
+        res.status(401).sendFile(__dirname + '/resources/no-auth.html');
         console.log("Non autenticato. Token: ", req.session)
     } else {
 

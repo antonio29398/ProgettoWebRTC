@@ -299,7 +299,7 @@ $(document).ready(function() {
 											$('#videolocal').append(
 												'<div class="no-video-container">' +
 													'<i class="fa-solid fa-video fa-xl no-video-icon" style="height: 100%;"></i>' +
-													'<span class="no-video-text" style="font-size: 16px;">Video rejected, no webcam</span>' +
+													'<span class="no-video-text" style="font-size: 16px;">Video rifiutato</span>' +
 												'</div>');
 										}
 									}
@@ -331,7 +331,7 @@ $(document).ready(function() {
 													$('#videolocal').append(
 														'<div class="no-video-container">' +
 															'<i class="fa-solid fa-video fa-xl no-video-icon"></i>' +
-															'<span class="no-video-text">No webcam available</span>' +
+															'<span class="no-video-text">Nessun video disponibile</span>' +
 														'</div>');
 												}
 											}
@@ -362,7 +362,7 @@ $(document).ready(function() {
 												$('#videolocal').append(
 													'<div class="no-video-container">' +
 														'<i class="fa-solid fa-video fa-xl no-video-icon"></i>' +
-														'<span class="no-video-text">No webcam available</span>' +
+														'<span class="no-video-text">Nessun video disponibile</span>' +
 													'</div>');
 											}
 										}
@@ -953,7 +953,7 @@ function subscribeTo(sources) {
 								$('#videoremote' + slot).append(
 									'<div class="no-video-container">' +
 										'<i class="fa-solid fa-video fa-xl no-video-icon"></i>' +
-										'<span class="no-video-text">No remote video available</span>' +
+										'<span class="no-video-text">Nessun video disponibile</span>' +
 									'</div>');
 							}
 						}
@@ -979,7 +979,7 @@ function subscribeTo(sources) {
 							$('#videoremote' + slot).append(
 								'<div class="no-video-container">' +
 									'<i class="fa-solid fa-video fa-xl no-video-icon"></i>' +
-									'<span class="no-video-text">No remote video available</span>' +
+									'<span class="no-video-text">Nessun video disponibile</span>' +
 								'</div>');
 						}
 					}
@@ -990,10 +990,10 @@ function subscribeTo(sources) {
 					let stream = new MediaStream([track]);
 					remoteTracks[mid] = stream;
 					Janus.log("Created remote video stream:", stream);
-					$('#videoremote' + slot).append('<video class="rounded centered" id="remotevideo' + slot + '-' + mid + '" width=100% autoplay playsinline/>');
+					$('#videoremote' + slot).append('<video controls class="rounded centered" id="remotevideo' + slot + '-' + mid + '" width=100% autoplay playsinline/>');
 					$('#videoremote' + slot).append(
-						'<span class="badge bg-primary hide" id="curres'+slot+'" style="position: absolute; bottom: 0px; left: 0px; margin: 15px;"></span>' +
-						'<span class="badge bg-info hide" id="curbitrate'+slot+'" style="position: absolute; bottom: 0px; right: 0px; margin: 15px;"></span>');
+						'<span class="badge bg-primary hide" id="curres'+slot+'" style="position: absolute; bottom: 0px; left: 0px; margin: 0 0 1px 5px;"></span>' +
+						'<span class="badge bg-info hide" id="curbitrate'+slot+'" style="position: absolute; bottom: 0px; right: 0px; margin: 0 5px 1px 0;"></span>');
 					Janus.attachMediaStream($('#remotevideo' + slot + '-' + mid).get(0), stream);
 					// Note: we'll need this for additional videos too
 					if(!bitrateTimer[slot]) {
