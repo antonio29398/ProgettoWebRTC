@@ -28,8 +28,16 @@ server {
         }
     }
 
-    location /uninascreensharing {
-        proxy_pass http://194.20.1.5:8000/uninascreensharing;
+    location /server/ {
+        proxy_pass http://194.20.1.5:8000/;
+        # other proxy settings...
+
+        # Configurazione CORS...
+    }
+
+   
+    location /server/login {
+        proxy_pass http://194.20.1.5:8000/login;
         # other proxy settings...
 
         # Configurazione CORS...

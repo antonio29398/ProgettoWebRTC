@@ -26,10 +26,11 @@ function Login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs),
             credentials: 'include',
+            
         };
 
 
-        const response = await fetch('http://localhost:8000/login', requestOptions);
+        const response = await fetch('https://localhost/server/login', requestOptions);
         const data = await response.json();
 
 
