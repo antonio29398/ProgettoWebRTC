@@ -15,8 +15,9 @@ app.use(session({
     rolling: true,
     cookie: {
         name: 'sessionCookie',
-        maxAge: 3600000, // Durata massima del cookie in millisecondi (ad esempio, 1 ora)
-        httpOnly: true,
+        maxAge: 3600000, // Expires in 1h
+        httpOnly: false,
+        secure: false, // Imposta a true se stai usando HTTPS
     }
 }))
 
@@ -37,7 +38,7 @@ app.use(express.json())
 
 // Utilizzo il package cors per consentire l'invio di risorse dal
 // sito da cui è previsto l'invio del login
-var corsOptions = { origin: 'http://localhost:3000', credentials: true }
+var corsOptions = { origin: ['http://localhost:3000', 'https://localhost'], credentials: true}
 app.use(cors(corsOptions));
 
 
@@ -56,8 +57,12 @@ app.get('/icona.ico', function (req, res) {
 
 // Middleware per verificare l'autenticazione
 const verificaAutenticazione = (req, res, next) => {
-
-    if (req.session.token === "no-token" || req.session.token === undefined) {
+    
+    console.log("ID della sessione",req.sessionID);
+    console.log("Il token è:",req.session.token);
+    console.log("Quando entro la sessione è:",req.session);
+    
+    if (req.session.token === undefined) {
         // Prosegui con la richiesta se l'utente è autenticato
         res.status(401).sendFile(__dirname + '/collegamenti/no-auth.html');
         console.log("Non autenticato. Token: ", req.session)
@@ -73,16 +78,19 @@ const verificaAutenticazione = (req, res, next) => {
             // (passa già un check su login valido!)
             .then((results) => {
 
-                console.log(req.session.token)
-                if (results[0].token === req.session.token)
+                if (results.length > 0 && results[0].token === req.session.token) {
+                    console.log("Autenticato. Token: ", req.session.token);
                     next();
-                else
+                }
+                else {
                     // Rispondi con un errore se non esiste l'utente
                     res.status(401).send('Il token non corrisponde all&apos;utente');
+                }
 
             })
             .catch((err) => {
                 console.error("Errore della query token: ", err);
+                res.status(500).json({ error: "Errore interno del server", message: "Errore durante la verifica dell'autenticazione" });
             })
 
         console.log("Autenticato. Token: ", req.session.token)
@@ -131,16 +139,20 @@ app.post('/login', function (req, res) {
 
                         let token = results[0].token;
                         req.session.token = token;
-                        console.log("Setto il token a: ", req.session.token)
+                        req.session.user = user;
+                        console.log("ID della sessione",req.sessionID);
+                        console.log("Setto il token a:",req.session.token);
+                        console.log("Quando setto la sessione è:",req.session);
+
                         req.session.save(() => {
                             res.send({ message: "credenziali valide" });
                         });
                     })
                     .catch((err) => {
                         console.error("Errore della query token: ", err);
+                        res.status(500).send('Errore interno del server');
                     })
 
-                req.session.user = user;
 
             }
 

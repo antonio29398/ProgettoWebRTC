@@ -2,6 +2,25 @@ version: '3'
 
 services:
 
+  nginx:
+    image: "antonio29398/nginxwebrtc:latest"
+    container_name : 'nginxCompose'
+    ports:
+    - "443:443"
+    volumes:
+      - ./ssl:/etc/nginx/ssl
+     
+
+
+    restart: always
+    networks:
+      network_compose:
+        ipv4_address: 194.20.1.2
+        
+
+
+
+
   mysql:
     image: "mysql:latest"
     container_name : 'mysqlCompose'

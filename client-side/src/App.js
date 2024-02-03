@@ -16,7 +16,7 @@ function App() {
       <Route index element={<Home />} />
 
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/accedi" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/UniNaScreensharing" element={<UniNaScreensharing />} />
 
