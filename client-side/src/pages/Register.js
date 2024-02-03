@@ -33,7 +33,7 @@ function Register() {
         // Handling della risposta al tentativo di registrazione
         if (data.message === "utente creato") {
             alert("Registrazione completata!\nPremi OK per andare alla schermata di login.");
-            navigate('/login', { replace: true });
+            navigate('/accedi', { replace: true });
         }
         else if (data.message === "utente già esistente") {
             alert("Registrazione fallita.\nControllare i campi e ripetere la registrazione.")

@@ -35,7 +35,7 @@ function Home() {
         <div className='my-5 bg-glass'>
           <div className='p-5'>
 
-            <MDBBtn className='w-100 mb-4' style={{ backgroundColor: "hsla(218, 92%, 76%, 0.671)" }} size='md' onClick={() => navigate("/login")}>Accedi</MDBBtn>
+            <MDBBtn className='w-100 mb-4' style={{ backgroundColor: "hsla(218, 92%, 76%, 0.671)" }} size='md' onClick={() => navigate("/accedi")}>Accedi</MDBBtn>
             <MDBBtn className='w-100 mb-4' style={{ backgroundColor: "hsla(218, 92%, 76%, 0.671)" }} size='md' onClick={() => navigate("/register")}>Registrati</MDBBtn>
 
           </div>
