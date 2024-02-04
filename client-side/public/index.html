@@ -3,8 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="%PUBLIC_URL%/immagini/icona.png"/>
+    <link rel="icon" type="image/png" id="favicon" href="%PUBLIC_URL%/immagini/icona.png">
     <title>UniNa Screensharing</title>
+
+    <script>
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.getElementById('favicon').href = '%PUBLIC_URL%/immagini/icona(black).png';
+      }
+    </script>
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
