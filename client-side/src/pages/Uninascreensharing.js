@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Layout from './Layout';
 
+// Pagina che effettua il redirect al back-end
 function UniNaScreensharing() {
 
     useEffect(() => {

@@ -38,16 +38,9 @@ app.use(express.json())
 
 // Utilizzo il package cors per consentire l'invio di risorse dal
 // sito da cui è previsto l'invio del login
-var corsOptions = { origin: ['http://localhost:3000', 'https://localhost'], credentials: true}
+var corsOptions = { origin: ['http://localhost:3000', 'https://localhost'], credentials: true }
 app.use(cors(corsOptions));
 
-
-// Configurazione delle risposte a richieste http
-const jsonData = {
-    message: 'Login avvenuto con successo',
-    userId: 123,
-    username: 'esempio_username'
-};
 
 // Favicon
 app.get('/icona.ico', function (req, res) {
@@ -57,11 +50,11 @@ app.get('/icona.ico', function (req, res) {
 
 // Middleware per verificare l'autenticazione
 const verificaAutenticazione = (req, res, next) => {
-    
-    console.log("ID della sessione",req.sessionID);
-    console.log("Il token è:",req.session.token);
-    console.log("Quando entro la sessione è:",req.session);
-    
+
+    console.log("ID della sessione", req.sessionID);
+    console.log("Il token è:", req.session.token);
+    console.log("Quando entro la sessione è:", req.session);
+
     if (req.session.token === undefined) {
         // Prosegui con la richiesta se l'utente è autenticato
         res.status(401).sendFile(__dirname + '/resources/no-auth.html');
@@ -73,17 +66,15 @@ const verificaAutenticazione = (req, res, next) => {
 
         database.query(getToken, [username])
 
-            // res.send viene fatto nel then perché è l'ultima parte di codice ad essere
-            // eseguita, inoltre, siamo sicuri che questa query vada a buon fine
-            // (passa già un check su login valido!)
             .then((results) => {
 
+                // Se la query produce un risultato ed è quelloa atteso fornisco la risorsa
                 if (results.length > 0 && results[0].token === req.session.token) {
                     console.log("Autenticato. Token: ", req.session.token);
                     next();
                 }
                 else {
-                    // Rispondi con un errore se non esiste l'utente
+                    // Altrimenti rispondo con un errore se non esiste l'utente
                     res.status(401).send('Il token non corrisponde all&apos;utente');
                 }
 
@@ -98,8 +89,9 @@ const verificaAutenticazione = (req, res, next) => {
     }
 };
 
+// Richiesta di accesso al file dell'applicazione
 app.get('/UniNaScreensharing', verificaAutenticazione, function (req, res) {
-    res.sendFile(__dirname + '/index.html')
+    res.sendFile(__dirname + '/resources/UninaScreensharing.html')
 });
 
 
@@ -140,9 +132,9 @@ app.post('/login', function (req, res) {
                         let token = results[0].token;
                         req.session.token = token;
                         req.session.user = user;
-                        console.log("ID della sessione",req.sessionID);
-                        console.log("Setto il token a:",req.session.token);
-                        console.log("Quando setto la sessione è:",req.session);
+                        console.log("ID della sessione", req.sessionID);
+                        console.log("Setto il token a:", req.session.token);
+                        console.log("Quando setto la sessione è:", req.session);
 
                         req.session.save(() => {
                             res.send({ message: "credenziali valide" });

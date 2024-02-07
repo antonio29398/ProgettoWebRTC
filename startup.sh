@@ -5,5 +5,3 @@ npm start &
 cd /home/ProgettoWebRTC/server
 npm install
 npm start 
-
-

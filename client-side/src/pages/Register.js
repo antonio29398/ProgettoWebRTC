@@ -6,6 +6,7 @@ import React from "react";
 import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 
 
+// Implementazione della pagina di registrazione
 function Register() {
 
     const [inputs, setInputs] = useState({});
@@ -18,6 +19,7 @@ function Register() {
         setInputs((values) => ({ ...values, [name]: value }))
     }
 
+    // Funzione che si attiva al submit del form
     async function handleSubmit(event) {
 
         event.preventDefault();
@@ -27,6 +29,8 @@ function Register() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(inputs)
         };
+        
+        // Invio della POST request contenente la richiesta di registrazione
         const response = await fetch('https://localhost/server/register', requestOptions);
         const data = await response.json();
 

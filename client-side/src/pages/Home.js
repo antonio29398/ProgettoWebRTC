@@ -4,6 +4,7 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 import Layout from "./Layout";
 import { useNavigate } from "react-router-dom";
 
+// Implementazione della homepage
 function Home() {
 
   let navigate = useNavigate();

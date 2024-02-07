@@ -8,6 +8,7 @@ import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import UniNaScreensharing from './pages/Uninascreensharing';
 
+// Routing che permette il rendering del component richiesto
 function App() {
 
   return (

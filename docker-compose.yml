@@ -4,26 +4,22 @@ services:
 
   nginx:
     image: "antonio29398/nginxwebrtc:latest"
-    container_name : 'nginxCompose'
+    container_name : 'nginx'
     ports:
     - "443:443"
     volumes:
       - ./ssl:/etc/nginx/ssl
-     
-
 
     restart: always
     networks:
       network_compose:
         ipv4_address: 194.20.1.2
-        
-
 
 
 
   mysql:
     image: "mysql:latest"
-    container_name : 'mysqlCompose'
+    container_name : 'database'
     
     environment:
     # Password for root access
@@ -42,7 +38,7 @@ services:
   janus:
     image: "antonio29398/janus-gateway:v3"
 
-    container_name: 'janusCompose'
+    container_name: 'janus'
 
     command:  bash -c "/opt/janus/bin/janus "
 
@@ -55,9 +51,10 @@ services:
         ipv4_address: 194.20.1.4
       
   
+
   server:
     image: "antonio29398/ubuntuserver:v5"
-    container_name : 'serverCompose'
+    container_name : 'server'
     
     
     volumes:
@@ -70,6 +67,7 @@ services:
     networks:
       network_compose:
         ipv4_address: 194.20.1.5
+    
       
 networks:
   network_compose:

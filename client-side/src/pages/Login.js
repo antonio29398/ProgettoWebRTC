@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { MDBInput, MDBBtn } from 'mdb-react-ui-kit';
 
 
+// Implementazione della pagina di login
 function Login() {
 
     const [inputs, setInputs] = useState({});
     let navigate = useNavigate();
 
+    // Funzione che permette di modificare i valori mentre sono inseriti
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -18,9 +20,11 @@ function Login() {
         setInputs(values => ({ ...values, [name]: value }))
     }
 
+    // Funzione che si attiva al submit del form
     async function handleSubmit(event) {
         event.preventDefault();
 
+        // POST request di invio delle credenziali
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -30,9 +34,9 @@ function Login() {
         };
 
 
+        // Invio della POST
         const response = await fetch('https://localhost/server/login', requestOptions);
         const data = await response.json();
-
 
 
         // Handling dell'esito del login
